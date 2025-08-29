@@ -1,0 +1,9 @@
+CREATE TABLE reservations (
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    table_id INTEGER NOT NULL,
+    date TIMESTAMP NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (table_id) REFERENCES tables(id) ON DELETE CASCADE
+);
