@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 public class DiningTableService {
 
-    private DiningTableRepository repository;
+    private final DiningTableRepository repository;
 
     @Autowired
     public DiningTableService(DiningTableRepository diningTableRepository) {
@@ -35,7 +35,7 @@ public class DiningTableService {
         return repository.findAll();
     }
 
-    public void updateDiningTable(int id, UpdateDiningTableDTO data) {
+    public DiningTable updateDiningTable(int id, UpdateDiningTableDTO data) {
         DiningTable tempTable = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + id));
 
@@ -43,7 +43,7 @@ public class DiningTableService {
         if (data.capacity() != null) tempTable.setCapacity(data.capacity());
         if (data.status() != null) tempTable.setStatus(data.status());
 
-        repository.save(tempTable);
+        return repository.save(tempTable);
     }
 
     public void deleteDiningTable(int id) {

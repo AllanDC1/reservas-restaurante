@@ -17,16 +17,16 @@ import java.util.List;
 @Service
 public class ReservationService {
 
-    private ReservationRepository reservationRepository;
-    private DiningTableRepository diningTableRepositoryRepository;
-    private UserRepository userRepository;
+    private final ReservationRepository reservationRepository;
+    private final DiningTableRepository diningTableRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public ReservationService(ReservationRepository reservationRepository,
-                              DiningTableRepository diningTableRepositoryRepository,
+                              DiningTableRepository diningTableRepository,
                               UserRepository userRepository) {
         this.reservationRepository = reservationRepository;
-        this.diningTableRepositoryRepository = diningTableRepositoryRepository;
+        this.diningTableRepository = diningTableRepository;
         this.userRepository = userRepository;
     }
 
@@ -36,7 +36,7 @@ public class ReservationService {
         User tempUser = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not Found - id " + userId));
 
-        DiningTable tempTable = diningTableRepositoryRepository.findById(data.tableId())
+        DiningTable tempTable = diningTableRepository.findById(data.tableId())
                 .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + data.tableId()));
 
         // alterar para verificar se a mesa estará reservada no horário desejado
