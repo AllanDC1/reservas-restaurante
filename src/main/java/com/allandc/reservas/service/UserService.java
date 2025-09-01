@@ -23,6 +23,7 @@ public class UserService {
 
         newUser.setName(data.name());
         newUser.setEmail(data.email());
+        // alterar quando implementar criptografia
         newUser.setPassword(data.password());
         newUser.setRole(data.role());
 
