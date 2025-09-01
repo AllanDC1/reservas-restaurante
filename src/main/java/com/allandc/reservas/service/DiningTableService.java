@@ -3,6 +3,7 @@ package com.allandc.reservas.service;
 import com.allandc.reservas.dto.CreateDiningTableDTO;
 import com.allandc.reservas.dto.UpdateDiningTableDTO;
 import com.allandc.reservas.entity.DiningTable;
+import com.allandc.reservas.enums.DiningTableStatus;
 import com.allandc.reservas.repository.DiningTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class DiningTableService {
 
         newDiningTable.setNumber(data.number());
         newDiningTable.setCapacity(data.capacity());
-        newDiningTable.setStatus("disponível");
+        newDiningTable.setStatus(DiningTableStatus.AVAILABLE);
 
         return repository.save(newDiningTable);
     }

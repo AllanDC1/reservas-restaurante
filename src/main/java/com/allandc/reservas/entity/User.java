@@ -28,6 +28,6 @@ public class User {
 
     private String role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Reservation> reservations;
 }

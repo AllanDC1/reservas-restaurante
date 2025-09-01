@@ -4,6 +4,8 @@ import com.allandc.reservas.dto.CreateReservationDTO;
 import com.allandc.reservas.entity.DiningTable;
 import com.allandc.reservas.entity.Reservation;
 import com.allandc.reservas.entity.User;
+import com.allandc.reservas.enums.DiningTableStatus;
+import com.allandc.reservas.enums.ReservationStatus;
 import com.allandc.reservas.repository.DiningTableRepository;
 import com.allandc.reservas.repository.ReservationRepository;
 import com.allandc.reservas.repository.UserRepository;
@@ -37,12 +39,18 @@ public class ReservationService {
         DiningTable tempTable = diningTableRepositoryRepository.findById(data.tableId())
                 .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + data.tableId()));
 
+        // alterar para verificar se a mesa estará reservada no horário desejado
+        if (tempTable.getStatus().equals(DiningTableStatus.RESERVED)) throw new RuntimeException("Dining table already reserved");
+        if (tempTable.getStatus().equals(DiningTableStatus.INACTIVE)) throw new RuntimeException("Dining table temporarily inactive");
+
+        if (data.numberOfGuests() > tempTable.getCapacity()) throw new RuntimeException("Dining table capacity exceeded");
+
         Reservation newReservation = new Reservation();
 
         newReservation.setUser(tempUser);
         newReservation.setDiningTable(tempTable);
         newReservation.setDate(data.date());
-        newReservation.setStatus("ativa");
+        newReservation.setStatus(ReservationStatus.ACTIVE);
 
         return reservationRepository.save(newReservation);
     }
@@ -56,11 +64,15 @@ public class ReservationService {
         Reservation tempReservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reservation not Found - id " + id));
 
-        if (tempReservation.getStatus().equals("cancelada")) {
+        if (tempReservation.getStatus().equals(ReservationStatus.CANCELLED)) {
             throw new RuntimeException("Reservation already cancelled");
         }
 
-        tempReservation.setStatus("cancelada");
-        reservationRepository.save(tempReservation);
+        tempReservation.setStatus(ReservationStatus.CANCELLED);
+
+        DiningTable tempTable = tempReservation.getDiningTable();
+        tempTable.setStatus(DiningTableStatus.AVAILABLE);
+
+        reservationRepository.save(tempReservation); // a tempTable será salva em cascata
     }
 }

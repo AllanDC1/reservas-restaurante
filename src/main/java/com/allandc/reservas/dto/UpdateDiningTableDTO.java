@@ -1,4 +1,6 @@
 package com.allandc.reservas.dto;
 
-public record UpdateDiningTableDTO(Integer capacity, String status) {
+import com.allandc.reservas.enums.DiningTableStatus;
+
+public record UpdateDiningTableDTO(Integer capacity, DiningTableStatus status) {
 }
