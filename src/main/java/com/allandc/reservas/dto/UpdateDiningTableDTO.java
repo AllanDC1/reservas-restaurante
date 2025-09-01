@@ -1,4 +1,4 @@
 package com.allandc.reservas.dto;
 
-public record UpdateDiningTableDTO(int capacity, String status) {
+public record UpdateDiningTableDTO(Integer capacity, String status) {
 }

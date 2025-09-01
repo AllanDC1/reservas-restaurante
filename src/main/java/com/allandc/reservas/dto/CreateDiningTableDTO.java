@@ -1,4 +1,4 @@
 package com.allandc.reservas.dto;
 
-public record CreateDiningTableDTO(int number, int capacity) {
+public record CreateDiningTableDTO(Integer number, Integer capacity) {
 }
