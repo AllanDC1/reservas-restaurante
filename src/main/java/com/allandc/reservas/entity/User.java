@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.UUID;
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -16,7 +19,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private int id;
+    private UUID id;
 
     private String name;
 
@@ -25,4 +28,7 @@ public class User {
     private String password;
 
     private String role;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Reservation> reservations;
 }

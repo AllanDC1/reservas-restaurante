@@ -3,5 +3,7 @@ package com.allandc.reservas.repository;
 import com.allandc.reservas.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+import java.util.UUID;
+
+public interface UserRepository extends JpaRepository<User, UUID> {
 }
