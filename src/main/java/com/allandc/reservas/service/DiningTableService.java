@@ -21,11 +21,11 @@ public class DiningTableService {
         this.repository = diningTableRepository;
     }
 
-    public DiningTable createDiningTable(CreateDiningTableDTO data) {
+    public DiningTable createDiningTable(CreateDiningTableDTO dto) {
         DiningTable newDiningTable = new DiningTable();
 
-        newDiningTable.setNumber(data.number());
-        newDiningTable.setCapacity(data.capacity());
+        newDiningTable.setNumber(dto.number());
+        newDiningTable.setCapacity(dto.capacity());
         newDiningTable.setStatus(DiningTableStatus.AVAILABLE);
 
         return repository.save(newDiningTable);
@@ -35,13 +35,13 @@ public class DiningTableService {
         return repository.findAll();
     }
 
-    public DiningTable updateDiningTable(int id, UpdateDiningTableDTO data) {
+    public DiningTable updateDiningTable(int id, UpdateDiningTableDTO dto) {
         DiningTable tempTable = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + id));
 
         // null -> campo vazio/não alterar
-        if (data.capacity() != null) tempTable.setCapacity(data.capacity());
-        if (data.status() != null) tempTable.setStatus(data.status());
+        if (dto.capacity() != null) tempTable.setCapacity(dto.capacity());
+        if (dto.status() != null) tempTable.setStatus(dto.status());
 
         return repository.save(tempTable);
     }
