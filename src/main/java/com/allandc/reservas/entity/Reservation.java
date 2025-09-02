@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "reservations")
@@ -19,7 +20,7 @@ public class Reservation {
 
     @Id
     @GeneratedValue
-    private int id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

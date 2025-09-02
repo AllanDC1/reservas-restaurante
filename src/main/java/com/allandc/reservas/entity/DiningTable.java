@@ -18,7 +18,7 @@ import java.util.List;
 public class DiningTable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private int number;

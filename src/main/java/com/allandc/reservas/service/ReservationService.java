@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ReservationService {
@@ -30,7 +31,7 @@ public class ReservationService {
         this.userRepository = userRepository;
     }
 
-    public Reservation createReservation(int userId, CreateReservationDTO data) {
+    public Reservation createReservation(UUID userId, CreateReservationDTO data) {
 
         // alterar quando implementar autenticação
         User tempUser = userRepository.findById(userId)
@@ -55,12 +56,12 @@ public class ReservationService {
         return reservationRepository.save(newReservation);
     }
 
-    public List<Reservation> getReservationsByUser(int userId) {
+    public List<Reservation> getReservationsByUser(UUID userId) {
         // alterar quando implementar autenticação
         return reservationRepository.findByUserId(userId);
     }
 
-    public void cancelReservation(int id) {
+    public void cancelReservation(UUID id) {
         Reservation tempReservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reservation not Found - id " + id));
 

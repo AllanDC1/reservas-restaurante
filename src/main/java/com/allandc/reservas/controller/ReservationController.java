@@ -7,6 +7,7 @@ import com.allandc.reservas.service.ReservationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/reservations")
@@ -21,7 +22,7 @@ public class ReservationController {
     @GetMapping
     public List<ReservationResponseDTO> getReservations() {
 
-        int userId = 1; // alterar para usuário autenticado
+        UUID userId = UUID.randomUUID(); // alterar para usuário autenticado
 
         List<Reservation> result = reservationService.getReservationsByUser(userId);
 
@@ -36,7 +37,7 @@ public class ReservationController {
     @PostMapping
     public ReservationResponseDTO createReservation(CreateReservationDTO reservationDTO) {
 
-        int userId = 1; // alterar para usuário autenticado
+        UUID userId = UUID.randomUUID(); // alterar para usuário autenticado
 
         Reservation tempReservation = reservationService.createReservation(userId, reservationDTO);
 
@@ -47,7 +48,7 @@ public class ReservationController {
     }
 
     @PatchMapping("/{id}/cancel")
-    public void cancelReservation(@PathVariable int id) {
+    public void cancelReservation(@PathVariable UUID id) {
         reservationService.cancelReservation(id);
     }
 }
