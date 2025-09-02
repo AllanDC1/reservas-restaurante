@@ -3,7 +3,6 @@ package com.allandc.reservas.service;
 import com.allandc.reservas.dto.CreateUserDTO;
 import com.allandc.reservas.entity.User;
 import com.allandc.reservas.repository.UserRepository;
-import jakarta.persistence.Id;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.allandc.reservas.config;
+package com.allandc.reservas.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
