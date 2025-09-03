@@ -26,7 +26,8 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("reservas-restaurante-backend")
                     .withSubject(user.getEmail())
-                    .withClaim("role", user.getRole())
+                    .withClaim("name", user.getName())
+                    .withClaim("role", user.getRole().name())
                     .withIssuedAt(generateCreationDate())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
@@ -53,6 +54,10 @@ public class TokenService {
 
     public String extractEmail(String token) {
         return validateToken(token).getSubject();
+    }
+
+    public String extractName(String token) {
+        return validateToken(token).getClaim("name").asString();
     }
 
     public String extractRole(String token) {

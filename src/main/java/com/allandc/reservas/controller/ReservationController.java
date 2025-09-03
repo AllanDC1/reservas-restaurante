@@ -35,7 +35,7 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ReservationResponseDTO createReservation(CreateReservationDTO reservationDTO) {
+    public ReservationResponseDTO createReservation(@RequestBody CreateReservationDTO reservationDTO) {
 
         UUID userId = UUID.randomUUID(); // alterar para usuário autenticado
 
