@@ -4,6 +4,6 @@ CREATE TABLE users (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    password CHAR(68) NOT NULL,
+    password VARCHAR(60) NOT NULL,
     role VARCHAR(20) NOT NULL
 );

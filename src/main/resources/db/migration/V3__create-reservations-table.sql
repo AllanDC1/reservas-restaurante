@@ -1,6 +1,6 @@
 CREATE TABLE reservations (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-    user_id INTEGER NOT NULL,
+    user_id UUID NOT NULL,
     table_id INTEGER NOT NULL,
     date TIMESTAMP NOT NULL,
     status VARCHAR(20) NOT NULL,

@@ -33,12 +33,11 @@ public class ReservationService {
 
     public Reservation createReservation(UUID userId, CreateReservationDTO dto) {
 
-        // alterar quando implementar autenticação
         User tempUser = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not Found - id " + userId));
 
-        DiningTable tempTable = diningTableRepository.findById(dto.tableId())
-                .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + dto.tableId()));
+        DiningTable tempTable = diningTableRepository.findByNumber(dto.tableNumber())
+                .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + dto.tableNumber()));
 
         // alterar para verificar se a mesa estará reservada no horário desejado
         if (tempTable.getStatus().equals(DiningTableStatus.RESERVED)) throw new RuntimeException("Dining table already reserved");
@@ -57,7 +56,6 @@ public class ReservationService {
     }
 
     public List<Reservation> getReservationsByUser(UUID userId) {
-        // alterar quando implementar autenticação
         return reservationRepository.findByUserId(userId);
     }
 
