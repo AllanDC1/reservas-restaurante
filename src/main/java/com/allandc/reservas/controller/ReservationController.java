@@ -3,7 +3,9 @@ package com.allandc.reservas.controller;
 import com.allandc.reservas.dto.CreateReservationDTO;
 import com.allandc.reservas.dto.ReservationResponseDTO;
 import com.allandc.reservas.entity.Reservation;
+import com.allandc.reservas.entity.User;
 import com.allandc.reservas.service.ReservationService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +22,9 @@ public class ReservationController {
     }
 
     @GetMapping
-    public List<ReservationResponseDTO> getReservations() {
+    public List<ReservationResponseDTO> getReservations(@AuthenticationPrincipal User user) {
 
-        UUID userId = UUID.randomUUID(); // alterar para usuário autenticado
-
-        List<Reservation> result = reservationService.getReservationsByUser(userId);
+        List<Reservation> result = reservationService.getReservationsByUser(user.getId());
 
         return result.stream()
                 .map(r -> new ReservationResponseDTO(
@@ -35,11 +35,9 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ReservationResponseDTO createReservation(CreateReservationDTO reservationDTO) {
+    public ReservationResponseDTO createReservation(@AuthenticationPrincipal User user, @RequestBody CreateReservationDTO reservationDTO) {
 
-        UUID userId = UUID.randomUUID(); // alterar para usuário autenticado
-
-        Reservation tempReservation = reservationService.createReservation(userId, reservationDTO);
+        Reservation tempReservation = reservationService.createReservation(user.getId(), reservationDTO);
 
         return new ReservationResponseDTO(
                 tempReservation.getDiningTable().getNumber(),

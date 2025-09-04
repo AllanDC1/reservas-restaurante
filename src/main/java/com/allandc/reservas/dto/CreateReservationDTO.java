@@ -1,6 +1,6 @@
 package com.allandc.reservas.dto;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public record CreateReservationDTO(int tableId, Date date, int numberOfGuests) {
+public record CreateReservationDTO(int tableNumber, LocalDateTime date, int numberOfGuests) {
 }

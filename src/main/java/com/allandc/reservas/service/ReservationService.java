@@ -31,33 +31,31 @@ public class ReservationService {
         this.userRepository = userRepository;
     }
 
-    public Reservation createReservation(UUID userId, CreateReservationDTO data) {
+    public Reservation createReservation(UUID userId, CreateReservationDTO dto) {
 
-        // alterar quando implementar autenticação
         User tempUser = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not Found - id " + userId));
 
-        DiningTable tempTable = diningTableRepository.findById(data.tableId())
-                .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + data.tableId()));
+        DiningTable tempTable = diningTableRepository.findByNumber(dto.tableNumber())
+                .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + dto.tableNumber()));
 
         // alterar para verificar se a mesa estará reservada no horário desejado
         if (tempTable.getStatus().equals(DiningTableStatus.RESERVED)) throw new RuntimeException("Dining table already reserved");
         if (tempTable.getStatus().equals(DiningTableStatus.INACTIVE)) throw new RuntimeException("Dining table temporarily inactive");
 
-        if (data.numberOfGuests() > tempTable.getCapacity()) throw new RuntimeException("Dining table capacity exceeded");
+        if (dto.numberOfGuests() > tempTable.getCapacity()) throw new RuntimeException("Dining table capacity exceeded");
 
         Reservation newReservation = new Reservation();
 
         newReservation.setUser(tempUser);
         newReservation.setDiningTable(tempTable);
-        newReservation.setDate(data.date());
+        newReservation.setDate(dto.date());
         newReservation.setStatus(ReservationStatus.ACTIVE);
 
         return reservationRepository.save(newReservation);
     }
 
     public List<Reservation> getReservationsByUser(UUID userId) {
-        // alterar quando implementar autenticação
         return reservationRepository.findByUserId(userId);
     }
 

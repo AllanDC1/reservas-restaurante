@@ -1,5 +1,6 @@
 package com.allandc.reservas.entity;
 
+import com.allandc.reservas.enums.UserRoles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +28,8 @@ public class User {
 
     private String password;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private UserRoles role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Reservation> reservations;

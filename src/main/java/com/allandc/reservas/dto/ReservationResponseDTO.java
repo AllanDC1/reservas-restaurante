@@ -2,7 +2,8 @@ package com.allandc.reservas.dto;
 
 import com.allandc.reservas.enums.ReservationStatus;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
-public record ReservationResponseDTO(int tableNumber, Date date, ReservationStatus status) {
+
+public record ReservationResponseDTO(int tableNumber, LocalDateTime date, ReservationStatus status) {
 }
