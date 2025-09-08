@@ -5,6 +5,7 @@ import com.allandc.reservas.dto.DiningTableResponseDTO;
 import com.allandc.reservas.dto.UpdateDiningTableDTO;
 import com.allandc.reservas.entity.DiningTable;
 import com.allandc.reservas.service.DiningTableService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/tables")
 public class DiningTableController {
-
 
     private final DiningTableService diningTableService;
 
@@ -32,14 +32,15 @@ public class DiningTableController {
     }
 
     @PostMapping
-    public DiningTableResponseDTO addDiningTable(@RequestBody CreateDiningTableDTO tableDTO) {
+    public DiningTableResponseDTO addDiningTable(@Valid @RequestBody CreateDiningTableDTO tableDTO) {
         DiningTable tempTable = diningTableService.createDiningTable(tableDTO);
 
         return new DiningTableResponseDTO(tempTable.getNumber(), tempTable.getCapacity(), tempTable.getStatus());
     }
 
     @PatchMapping("/{id}")
-    public DiningTableResponseDTO updateDiningTable(@PathVariable int id, @RequestBody UpdateDiningTableDTO tableDTO) {
+    public DiningTableResponseDTO updateDiningTable(@PathVariable int id,
+                                                    @Valid @RequestBody UpdateDiningTableDTO tableDTO) {
         DiningTable tempTable = diningTableService.updateDiningTable(id, tableDTO);
 
         return new DiningTableResponseDTO(tempTable.getNumber(), tempTable.getCapacity(), tempTable.getStatus());

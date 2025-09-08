@@ -5,6 +5,7 @@ import com.allandc.reservas.dto.ReservationResponseDTO;
 import com.allandc.reservas.entity.Reservation;
 import com.allandc.reservas.entity.User;
 import com.allandc.reservas.service.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,8 @@ public class ReservationController {
     }
 
     @PostMapping
-    public ReservationResponseDTO createReservation(@AuthenticationPrincipal User user, @RequestBody CreateReservationDTO reservationDTO) {
+    public ReservationResponseDTO createReservation(@AuthenticationPrincipal User user,
+                                                    @Valid @RequestBody CreateReservationDTO reservationDTO) {
 
         Reservation tempReservation = reservationService.createReservation(user.getId(), reservationDTO);
 

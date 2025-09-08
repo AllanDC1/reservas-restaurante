@@ -34,16 +34,16 @@ public class ReservationService {
     public Reservation createReservation(UUID userId, CreateReservationDTO dto) {
 
         User tempUser = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not Found - id " + userId));
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado - id " + userId));
 
         DiningTable tempTable = diningTableRepository.findByNumber(dto.tableNumber())
-                .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + dto.tableNumber()));
+                .orElseThrow(() -> new RuntimeException("Mesa não encontrada - id " + dto.tableNumber()));
 
         // alterar para verificar se a mesa estará reservada no horário desejado
-        if (tempTable.getStatus().equals(DiningTableStatus.RESERVED)) throw new RuntimeException("Dining table already reserved");
-        if (tempTable.getStatus().equals(DiningTableStatus.INACTIVE)) throw new RuntimeException("Dining table temporarily inactive");
+        if (tempTable.getStatus().equals(DiningTableStatus.RESERVED)) throw new RuntimeException("Mesa já reservada.");
+        if (tempTable.getStatus().equals(DiningTableStatus.INACTIVE)) throw new RuntimeException("Mesa temporariamente desativada.");
 
-        if (dto.numberOfGuests() > tempTable.getCapacity()) throw new RuntimeException("Dining table capacity exceeded");
+        if (dto.numberOfGuests() > tempTable.getCapacity()) throw new RuntimeException("Capacidade da mesa excedida.");
 
         Reservation newReservation = new Reservation();
 
@@ -61,10 +61,10 @@ public class ReservationService {
 
     public void cancelReservation(UUID id) {
         Reservation tempReservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reservation not Found - id " + id));
+                .orElseThrow(() -> new RuntimeException("Reserva não encontrada - id " + id));
 
         if (tempReservation.getStatus().equals(ReservationStatus.CANCELLED)) {
-            throw new RuntimeException("Reservation already cancelled");
+            throw new RuntimeException("Reserva já cancelada.");
         }
 
         tempReservation.setStatus(ReservationStatus.CANCELLED);

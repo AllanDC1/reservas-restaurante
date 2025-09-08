@@ -40,7 +40,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                 String role = tokenService.extractRole(token);
 
                 if (email != null && role != null) {
-                    User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+                    User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
 
                     var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
                     var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);

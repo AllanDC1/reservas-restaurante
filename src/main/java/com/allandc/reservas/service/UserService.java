@@ -31,7 +31,7 @@ public class UserService {
         Optional<User> tempUser = repository.findByEmail(dto.email());
 
         if (tempUser.isPresent()) {
-            throw new RuntimeException("Email already registered");
+            throw new RuntimeException("Email já registrado.");
         }
 
         User newUser = new User();
@@ -49,10 +49,10 @@ public class UserService {
     }
 
     public UserResponseDTO login(LoginRequestDTO dto) {
-        User user = repository.findByEmail(dto.email()).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = repository.findByEmail(dto.email()).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
 
         if (!passwordEncoder.matches(dto.password(), user.getPassword())) {
-            throw new RuntimeException("Invalid Password");
+            throw new RuntimeException("Senha inválida.");
         }
 
         String token = tokenService.generateToken(user);

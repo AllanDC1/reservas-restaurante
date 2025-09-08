@@ -5,6 +5,7 @@ import com.allandc.reservas.dto.RegisterRequestDTO;
 import com.allandc.reservas.dto.UserResponseDTO;
 import com.allandc.reservas.repository.UserRepository;
 import com.allandc.reservas.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,12 +21,12 @@ public class AuthController {
     private final UserService userService;
 
     @Autowired
-    public AuthController(UserService userService, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+    public ResponseEntity<UserResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
 
         UserResponseDTO login = userService.login(loginRequestDTO);
         if (login == null) return ResponseEntity.badRequest().build();
@@ -34,7 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDTO> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+    public ResponseEntity<UserResponseDTO> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
 
         UserResponseDTO register = userService.register(registerRequestDTO);
         if (register == null) return ResponseEntity.badRequest().build();
