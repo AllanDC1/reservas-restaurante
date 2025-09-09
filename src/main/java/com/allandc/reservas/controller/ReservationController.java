@@ -5,6 +5,8 @@ import com.allandc.reservas.dto.ReservationResponseDTO;
 import com.allandc.reservas.entity.Reservation;
 import com.allandc.reservas.entity.User;
 import com.allandc.reservas.service.ReservationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,8 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
+    @Operation(summary = "Lista as reservas do usuário logado",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @GetMapping
     public List<ReservationResponseDTO> getReservations(@AuthenticationPrincipal User user) {
 
@@ -35,6 +39,8 @@ public class ReservationController {
                 .toList();
     }
 
+    @Operation(summary = "Cria uma reserva para o usuário logado",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @PostMapping
     public ReservationResponseDTO createReservation(@AuthenticationPrincipal User user,
                                                     @Valid @RequestBody CreateReservationDTO reservationDTO) {
@@ -47,6 +53,8 @@ public class ReservationController {
                 tempReservation.getStatus());
     }
 
+    @Operation(summary = "Cancela uma reserva do usuário logado",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @PatchMapping("/{id}/cancel")
     public void cancelReservation(@PathVariable UUID id) {
         reservationService.cancelReservation(id);

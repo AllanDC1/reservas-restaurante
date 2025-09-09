@@ -31,13 +31,15 @@ public class SecurityConfig {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/auth/**").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
+
+                        .requestMatchers("/tables/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/tables").hasAnyRole("ADMIN", "CUSTOMER")
-                        .requestMatchers(HttpMethod.POST, "/tables").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PATCH, "/tables/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/tables/**").hasRole("ADMIN")
+
                         .requestMatchers("/reservations/**").hasAnyRole("ADMIN", "CUSTOMER")
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

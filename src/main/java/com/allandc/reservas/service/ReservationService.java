@@ -6,12 +6,15 @@ import com.allandc.reservas.entity.Reservation;
 import com.allandc.reservas.entity.User;
 import com.allandc.reservas.enums.DiningTableStatus;
 import com.allandc.reservas.enums.ReservationStatus;
+import com.allandc.reservas.enums.UserRoles;
 import com.allandc.reservas.repository.DiningTableRepository;
 import com.allandc.reservas.repository.ReservationRepository;
 import com.allandc.reservas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,11 +42,27 @@ public class ReservationService {
         DiningTable tempTable = diningTableRepository.findByNumber(dto.tableNumber())
                 .orElseThrow(() -> new RuntimeException("Mesa não encontrada - id " + dto.tableNumber()));
 
-        // alterar para verificar se a mesa estará reservada no horário desejado
         if (tempTable.getStatus().equals(DiningTableStatus.RESERVED)) throw new RuntimeException("Mesa já reservada.");
         if (tempTable.getStatus().equals(DiningTableStatus.INACTIVE)) throw new RuntimeException("Mesa temporariamente desativada.");
 
         if (dto.numberOfGuests() > tempTable.getCapacity()) throw new RuntimeException("Capacidade da mesa excedida.");
+
+        // possível implementação de verificação da data/horário de funcionamento do restaurante
+
+        List<Reservation> conflicts = reservationRepository.findByDiningTableNumberAndStatusAndDateBetween(
+                dto.tableNumber(),
+                ReservationStatus.ACTIVE,
+                dto.date().minusHours(2),
+                dto.date().plusHours(2)
+        );
+
+        boolean hasConflict = conflicts.stream().anyMatch(r -> {
+            LocalDateTime existingStart = r.getDate();
+            LocalDateTime existingEnd = existingStart.plusHours(2);
+            return dto.date().isBefore(existingEnd) && dto.date().plusHours(2).isAfter(existingStart);
+        });
+
+        if (hasConflict) throw new RuntimeException("A mesa já foi reservada nesse horário.");
 
         Reservation newReservation = new Reservation();
 
@@ -62,6 +81,12 @@ public class ReservationService {
     public void cancelReservation(UUID id) {
         Reservation tempReservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reserva não encontrada - id " + id));
+
+        User loggedUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (loggedUser.getRole() != UserRoles.ADMIN && !tempReservation.getUser().getEmail().equals(loggedUser.getEmail())) {
+            throw new RuntimeException("Você só pode cancelar suas próprias reservas.");
+        }
 
         if (tempReservation.getStatus().equals(ReservationStatus.CANCELLED)) {
             throw new RuntimeException("Reserva já cancelada.");
