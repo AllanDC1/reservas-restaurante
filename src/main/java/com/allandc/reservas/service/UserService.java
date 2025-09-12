@@ -1,7 +1,7 @@
 package com.allandc.reservas.service;
 
 import com.allandc.reservas.dto.LoginRequestDTO;
-import com.allandc.reservas.dto.UserResponseDTO;
+import com.allandc.reservas.dto.LoginResponseDTO;
 import com.allandc.reservas.dto.RegisterRequestDTO;
 import com.allandc.reservas.entity.User;
 import com.allandc.reservas.repository.UserRepository;
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,12 +27,12 @@ public class UserService {
         this.tokenService = tokenService;
     }
 
-    public UserResponseDTO register(RegisterRequestDTO dto) {
+    public LoginResponseDTO register(RegisterRequestDTO dto) {
 
         Optional<User> tempUser = repository.findByEmail(dto.email());
 
         if (tempUser.isPresent()) {
-            throw new RuntimeException("Email already registered");
+            throw new RuntimeException("Email já registrado.");
         }
 
         User newUser = new User();
@@ -45,19 +46,23 @@ public class UserService {
 
         String token = tokenService.generateToken(newUser);
 
-        return new UserResponseDTO(newUser.getName(), token);
+        return new LoginResponseDTO(newUser.getName(), token);
     }
 
-    public UserResponseDTO login(LoginRequestDTO dto) {
-        User user = repository.findByEmail(dto.email()).orElseThrow(() -> new RuntimeException("User not found"));
+    public LoginResponseDTO login(LoginRequestDTO dto) {
+        User user = repository.findByEmail(dto.email()).orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
 
         if (!passwordEncoder.matches(dto.password(), user.getPassword())) {
-            throw new RuntimeException("Invalid Password");
+            throw new RuntimeException("Senha inválida.");
         }
 
         String token = tokenService.generateToken(user);
         String name = tokenService.extractName(token);
 
-        return new UserResponseDTO(name, token);
+        return new LoginResponseDTO(name, token);
+    }
+
+    public List<User> getAllUsers() {
+        return repository.findAll();
     }
 }

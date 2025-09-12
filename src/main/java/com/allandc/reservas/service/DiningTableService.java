@@ -37,7 +37,7 @@ public class DiningTableService {
 
     public DiningTable updateDiningTable(int id, UpdateDiningTableDTO dto) {
         DiningTable tempTable = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Dining Table not Found - id " + id));
+                .orElseThrow(() -> new RuntimeException("Mesa não encontrada - id " + id));
 
         // null -> campo vazio/não alterar
         if (dto.capacity() != null) tempTable.setCapacity(dto.capacity());

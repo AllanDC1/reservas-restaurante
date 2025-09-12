@@ -5,6 +5,9 @@ import com.allandc.reservas.dto.DiningTableResponseDTO;
 import com.allandc.reservas.dto.UpdateDiningTableDTO;
 import com.allandc.reservas.entity.DiningTable;
 import com.allandc.reservas.service.DiningTableService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +17,6 @@ import java.util.List;
 @RequestMapping("/tables")
 public class DiningTableController {
 
-
     private final DiningTableService diningTableService;
 
     @Autowired
@@ -22,6 +24,8 @@ public class DiningTableController {
         this.diningTableService = diningTableService;
     }
 
+    @Operation(summary = "Lista todas as mesas do restaurante e suas informações",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @GetMapping
     public List<DiningTableResponseDTO> getDiningTables() {
         List<DiningTable> result = diningTableService.getAllDiningTables();
@@ -31,20 +35,27 @@ public class DiningTableController {
                 .toList();
     }
 
+    @Operation(summary = "Adiciona uma nova mesa ao restaurante",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @PostMapping
-    public DiningTableResponseDTO addDiningTable(@RequestBody CreateDiningTableDTO tableDTO) {
+    public DiningTableResponseDTO addDiningTable(@Valid @RequestBody CreateDiningTableDTO tableDTO) {
         DiningTable tempTable = diningTableService.createDiningTable(tableDTO);
 
         return new DiningTableResponseDTO(tempTable.getNumber(), tempTable.getCapacity(), tempTable.getStatus());
     }
 
+    @Operation(summary = "Atualiza informações de uma mesa do restaurante",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @PatchMapping("/{id}")
-    public DiningTableResponseDTO updateDiningTable(@PathVariable int id, @RequestBody UpdateDiningTableDTO tableDTO) {
+    public DiningTableResponseDTO updateDiningTable(@PathVariable int id,
+                                                    @Valid @RequestBody UpdateDiningTableDTO tableDTO) {
         DiningTable tempTable = diningTableService.updateDiningTable(id, tableDTO);
 
         return new DiningTableResponseDTO(tempTable.getNumber(), tempTable.getCapacity(), tempTable.getStatus());
     }
 
+    @Operation(summary = "Remove uma mesa do restaurante",
+            security = {@SecurityRequirement(name = "bearerAuth")})
     @DeleteMapping("/{id}")
     public void removeDiningTable(@PathVariable int id) {
         diningTableService.deleteDiningTable(id);

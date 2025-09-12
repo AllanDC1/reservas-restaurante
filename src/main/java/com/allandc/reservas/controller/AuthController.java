@@ -2,12 +2,12 @@ package com.allandc.reservas.controller;
 
 import com.allandc.reservas.dto.LoginRequestDTO;
 import com.allandc.reservas.dto.RegisterRequestDTO;
-import com.allandc.reservas.dto.UserResponseDTO;
-import com.allandc.reservas.repository.UserRepository;
+import com.allandc.reservas.dto.LoginResponseDTO;
 import com.allandc.reservas.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,23 +20,25 @@ public class AuthController {
     private final UserService userService;
 
     @Autowired
-    public AuthController(UserService userService, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthController(UserService userService) {
         this.userService = userService;
     }
 
+    @Operation(summary = "Fazer login em conta já existente")
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDTO> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
 
-        UserResponseDTO login = userService.login(loginRequestDTO);
+        LoginResponseDTO login = userService.login(loginRequestDTO);
         if (login == null) return ResponseEntity.badRequest().build();
 
         return ResponseEntity.ok(login);
     }
 
+    @Operation(summary = "Fazer registro de uma nova conta")
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDTO> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
+    public ResponseEntity<LoginResponseDTO> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
 
-        UserResponseDTO register = userService.register(registerRequestDTO);
+        LoginResponseDTO register = userService.register(registerRequestDTO);
         if (register == null) return ResponseEntity.badRequest().build();
 
         return ResponseEntity.ok(register);
