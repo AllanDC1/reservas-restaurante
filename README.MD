@@ -52,7 +52,7 @@ Abra o terminal no diretório onde quiser clonar o projeto e cole o comando:
 git clone https://github.com/AllanDC1/reservas-restaurante.git
 ```
 
-Depois mude para o diretório recém criado com:
+Depois mude para o diretório recém-criado com:
 
 ```bash
 cd reservas-restaurante
@@ -81,10 +81,10 @@ docker-compose up --build
 
 Assim a API e o banco de dados (PostgreSQL) já serão construídos e conectados.<br>
 
-A aplicação já estará rodando na porta padrão (8080) em:
+A aplicação já estará rodando na porta padrão (8080) em:<br>
 [http://localhost:8080/](http://localhost:8080/)
 
-E a documentação completa dos endpoints da API estará disponível no Swagger em:
+E a documentação completa dos endpoints da API estará disponível no Swagger em:<br>
 [http://localhost:8080/swagger-ui](http://localhost:8080/swagger-ui)  
 
 <h2 id="dev">🌐 Desenvolvedor</h2>
