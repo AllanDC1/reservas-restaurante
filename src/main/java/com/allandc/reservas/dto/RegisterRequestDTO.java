@@ -20,7 +20,7 @@ public record RegisterRequestDTO(
         @NotBlank(message = "Senha obrigatória.")
         @Size(min = 6, max = 50, message = "Tamanho da senha inválido (06-50)")
         String password,
-        @Schema(description = "Cargo da conta para permissões", example = "CUSTOMER")
+        @Schema(description = "Cargo da conta para permissões", example = "ADMIN")
         @NotNull(message = "Role do usuário obrigatório.")
         UserRoles role) {
 }
