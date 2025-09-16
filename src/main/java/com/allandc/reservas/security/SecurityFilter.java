@@ -1,7 +1,7 @@
 package com.allandc.reservas.security;
 
-import com.allandc.reservas.entity.User;
-import com.allandc.reservas.repository.UserRepository;
+import com.allandc.reservas.domain.user.User;
+import com.allandc.reservas.domain.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

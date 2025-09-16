@@ -1,6 +1,6 @@
 package com.allandc.reservas.security;
 
-import com.allandc.reservas.entity.User;
+import com.allandc.reservas.domain.user.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
