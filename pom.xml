@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.allandc</groupId>
 	<artifactId>reservas</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>reservas</name>
 	<description>Sistema de reservas para restaurante</description>
 	<url/>
