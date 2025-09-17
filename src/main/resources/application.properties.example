@@ -1,0 +1,5 @@
+spring.datasource.url=jdbc:postgresql://localhost:5432/reservasdb
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+
+jwt.secret={SUA_CHAVE_SECRETA}
