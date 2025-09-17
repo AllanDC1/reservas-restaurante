@@ -1,9 +1,9 @@
-package com.allandc.reservas.domain.auth.controller;
+package com.allandc.reservas.controller;
 
-import com.allandc.reservas.domain.auth.dto.LoginRequestDTO;
-import com.allandc.reservas.domain.auth.dto.RegisterRequestDTO;
-import com.allandc.reservas.domain.auth.dto.LoginResponseDTO;
-import com.allandc.reservas.domain.user.service.UserService;
+import com.allandc.reservas.domain.auth.LoginRequestDTO;
+import com.allandc.reservas.domain.auth.RegisterRequestDTO;
+import com.allandc.reservas.domain.auth.LoginResponseDTO;
+import com.allandc.reservas.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

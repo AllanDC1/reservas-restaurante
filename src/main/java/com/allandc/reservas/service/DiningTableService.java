@@ -1,10 +1,10 @@
-package com.allandc.reservas.domain.diningtable.service;
+package com.allandc.reservas.service;
 
-import com.allandc.reservas.domain.diningtable.dto.CreateDiningTableDTO;
-import com.allandc.reservas.domain.diningtable.dto.UpdateDiningTableDTO;
+import com.allandc.reservas.domain.diningtable.CreateDiningTableDTO;
+import com.allandc.reservas.domain.diningtable.UpdateDiningTableDTO;
 import com.allandc.reservas.domain.diningtable.DiningTable;
 import com.allandc.reservas.domain.diningtable.DiningTableStatus;
-import com.allandc.reservas.domain.diningtable.repository.DiningTableRepository;
+import com.allandc.reservas.repository.DiningTableRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

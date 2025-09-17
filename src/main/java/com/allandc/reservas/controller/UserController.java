@@ -1,8 +1,8 @@
-package com.allandc.reservas.domain.user.controller;
+package com.allandc.reservas.controller;
 
-import com.allandc.reservas.domain.user.dto.UserResponseDTO;
+import com.allandc.reservas.domain.user.UserResponseDTO;
 import com.allandc.reservas.domain.user.User;
-import com.allandc.reservas.domain.user.service.UserService;
+import com.allandc.reservas.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;

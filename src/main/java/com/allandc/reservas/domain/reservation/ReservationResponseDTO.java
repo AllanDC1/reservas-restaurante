@@ -1,6 +1,4 @@
-package com.allandc.reservas.domain.reservation.dto;
-
-import com.allandc.reservas.domain.reservation.ReservationStatus;
+package com.allandc.reservas.domain.reservation;
 
 import java.time.LocalDateTime;
 
