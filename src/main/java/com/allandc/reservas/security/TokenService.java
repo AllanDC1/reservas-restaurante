@@ -1,6 +1,6 @@
 package com.allandc.reservas.security;
 
-import com.allandc.reservas.entity.User;
+import com.allandc.reservas.domain.user.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -48,7 +48,7 @@ public class TokenService {
                     .build()
                     .verify(token);
         } catch (JWTVerificationException e) {
-            return null;
+            throw new RuntimeException("Erro ao validar token.");
         }
     }
 
@@ -65,10 +65,10 @@ public class TokenService {
     }
 
     private Instant generateCreationDate() {
-        return LocalDateTime.now().toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().toInstant(ZoneOffset.UTC);
     }
 
     private Instant generateExpirationDate() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.UTC);
     }
 }
