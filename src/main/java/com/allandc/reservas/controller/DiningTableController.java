@@ -1,10 +1,10 @@
-package com.allandc.reservas.domain.diningtable.controller;
+package com.allandc.reservas.controller;
 
-import com.allandc.reservas.domain.diningtable.dto.CreateDiningTableDTO;
-import com.allandc.reservas.domain.diningtable.dto.DiningTableResponseDTO;
-import com.allandc.reservas.domain.diningtable.dto.UpdateDiningTableDTO;
+import com.allandc.reservas.domain.diningtable.CreateDiningTableDTO;
+import com.allandc.reservas.domain.diningtable.DiningTableResponseDTO;
+import com.allandc.reservas.domain.diningtable.UpdateDiningTableDTO;
 import com.allandc.reservas.domain.diningtable.DiningTable;
-import com.allandc.reservas.domain.diningtable.service.DiningTableService;
+import com.allandc.reservas.service.DiningTableService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

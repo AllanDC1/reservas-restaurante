@@ -1,10 +1,10 @@
-package com.allandc.reservas.domain.user.service;
+package com.allandc.reservas.service;
 
-import com.allandc.reservas.domain.auth.dto.LoginRequestDTO;
-import com.allandc.reservas.domain.auth.dto.LoginResponseDTO;
-import com.allandc.reservas.domain.auth.dto.RegisterRequestDTO;
+import com.allandc.reservas.domain.auth.LoginRequestDTO;
+import com.allandc.reservas.domain.auth.LoginResponseDTO;
+import com.allandc.reservas.domain.auth.RegisterRequestDTO;
 import com.allandc.reservas.domain.user.User;
-import com.allandc.reservas.domain.user.repository.UserRepository;
+import com.allandc.reservas.repository.UserRepository;
 import com.allandc.reservas.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

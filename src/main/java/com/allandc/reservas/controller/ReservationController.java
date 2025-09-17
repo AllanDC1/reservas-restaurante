@@ -1,10 +1,10 @@
-package com.allandc.reservas.domain.reservation.controller;
+package com.allandc.reservas.controller;
 
-import com.allandc.reservas.domain.reservation.dto.CreateReservationDTO;
-import com.allandc.reservas.domain.reservation.dto.ReservationResponseDTO;
+import com.allandc.reservas.domain.reservation.CreateReservationDTO;
+import com.allandc.reservas.domain.reservation.ReservationResponseDTO;
 import com.allandc.reservas.domain.reservation.Reservation;
 import com.allandc.reservas.domain.user.User;
-import com.allandc.reservas.domain.reservation.service.ReservationService;
+import com.allandc.reservas.service.ReservationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

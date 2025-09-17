@@ -1,4 +1,4 @@
-package com.allandc.reservas.domain.auth.dto;
+package com.allandc.reservas.domain.auth;
 
 import com.allandc.reservas.domain.user.UserRoles;
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,4 +1,4 @@
-package com.allandc.reservas.domain.diningtable.dto;
+package com.allandc.reservas.domain.diningtable;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;

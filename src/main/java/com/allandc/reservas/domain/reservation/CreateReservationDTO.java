@@ -1,4 +1,4 @@
-package com.allandc.reservas.domain.reservation.dto;
+package com.allandc.reservas.domain.reservation;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;

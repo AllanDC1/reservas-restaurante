@@ -1,4 +1,4 @@
-package com.allandc.reservas.domain.auth.dto;
+package com.allandc.reservas.domain.auth;
 
 public record LoginResponseDTO(String name, String token) {
 }

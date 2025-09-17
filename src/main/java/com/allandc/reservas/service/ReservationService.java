@@ -1,15 +1,15 @@
-package com.allandc.reservas.domain.reservation.service;
+package com.allandc.reservas.service;
 
-import com.allandc.reservas.domain.reservation.dto.CreateReservationDTO;
+import com.allandc.reservas.domain.reservation.CreateReservationDTO;
 import com.allandc.reservas.domain.diningtable.DiningTable;
 import com.allandc.reservas.domain.reservation.Reservation;
 import com.allandc.reservas.domain.user.User;
 import com.allandc.reservas.domain.diningtable.DiningTableStatus;
 import com.allandc.reservas.domain.reservation.ReservationStatus;
 import com.allandc.reservas.domain.user.UserRoles;
-import com.allandc.reservas.domain.diningtable.repository.DiningTableRepository;
-import com.allandc.reservas.domain.reservation.repository.ReservationRepository;
-import com.allandc.reservas.domain.user.repository.UserRepository;
+import com.allandc.reservas.repository.DiningTableRepository;
+import com.allandc.reservas.repository.ReservationRepository;
+import com.allandc.reservas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

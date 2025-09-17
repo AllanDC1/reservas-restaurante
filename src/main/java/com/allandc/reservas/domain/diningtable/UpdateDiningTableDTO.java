@@ -1,6 +1,5 @@
-package com.allandc.reservas.domain.diningtable.dto;
+package com.allandc.reservas.domain.diningtable;
 
-import com.allandc.reservas.domain.diningtable.DiningTableStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Positive;
 
